@@ -31,10 +31,9 @@ int do_all_exam(patientQueue *pQueue, const short examNbr, const short nbrOfRoom
         examRoom[i].endOfExam = safe_malloc(sizeof(struct tm));
         *examRoom[i].endOfExam = *pQueue->this->availabilityHour;
     }
-    while (pQueue != NULL) {
+    for (; pQueue != NULL; pQueue = pQueue->next) {
         i = get_next_free_room(examRoom, nbrOfRooms);
         do_one_exam(pQueue->this, &examRoom[i], examNbr);
-        pQueue = pQueue->next;
     }
     for (i = 0; i < nbrOfRooms; ++i) {
         free(examRoom[i].endOfExam);

@@ -7,7 +7,7 @@
 patientQueue *extract_queue(circuit_e argument, patientQueue *dest, patientQueue *source) {
     patientQueue *new = dest;
     patientQueue *queue_tail = NULL;
-    while (source != NULL) {
+    for (; source != NULL; source = source->next) {
         if (source->this->circuit == argument) {
             if (queue_tail != NULL) {
                 queue_tail = queue_tail->next;
@@ -16,7 +16,6 @@ patientQueue *extract_queue(circuit_e argument, patientQueue *dest, patientQueue
             }
             new = queue_push(new, source->this, queue_tail);
         }
-        source= source->next;
     }
     return new;
 }
@@ -41,18 +40,16 @@ void free_queue(patientQueue **queue){
     *queue = NULL;
 }
 
-patient_t *copy_queue_in_array(patientQueue *pQueue, const int size)
+patient_t **copy_queue_in_array(patientQueue *pQueue, const int size)
 {
-    patient_t *array = NULL;
-    array = safe_malloc(size * sizeof(patient_t));
-    for (int i = 0; pQueue != NULL; ++i) {
+    patient_t **array = NULL;
+    array = safe_malloc(size * sizeof(patient_t*));
+    for (int i = 0; pQueue != NULL; ++i, pQueue = pQueue->next) {
         if (i == size) {
             fprintf(stderr, "Too many elements, the array does not contain all of them");
             break;
         }
-        array[i] = *pQueue->this;
-        free(pQueue->this);
-        pQueue = pQueue->next;
+        array[i] = pQueue->this;
     }
     return array;
 }

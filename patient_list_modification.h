@@ -12,7 +12,7 @@ patientQueue* extract_queue(circuit_e argument, patientQueue* dest, patientQueue
 
 void free_queue(patientQueue **queue);
 
-patient_t *copy_queue_in_array(patientQueue *pQueue, const int size);
+patient_t **copy_queue_in_array(patientQueue *pQueue, const int size);
 
 
 #endif //NF05_PROJET_REMAKE_PATIENT_LIST_MODIFICATION_H

@@ -23,13 +23,11 @@ int main() {
     do_branch_exam(VERY_LONG, queue, 3, 2);
 
     /* The queue content is copied in an array for result display and deleted */
-    patient_t *patient_list = copy_queue_in_array(queue, nbrOfPatients);
+    patient_t **patient_list = copy_queue_in_array(queue, nbrOfPatients);
     free_queue(&queue);
-
     clock_t end = clock();
     unsigned long millis = (end -  begin) * 1000 / CLOCKS_PER_SEC;
     printf( "Finished in %ld ms\n", millis );
-    puts("fini");
     while (getchar() != '\n');
     while (getchar() != '\n');
     return 0;

@@ -29,6 +29,8 @@ patientQueue *create_patient_queue(short *nbrOfPatients) {
         input_patient_information(patient, currentTime,
                                   isDurationRandom, isArrivalHourRandom, isNameRandom);
         if (isArrivalHourRandom) {
+            /* If the arrival hour is computer generated, the new patient has a higher
+             * arrival hour than the previously added one, so it can be pushed from the end */
             if (queue_tail != NULL) {
                 queue_tail = queue_tail->next;
             } else {
@@ -36,11 +38,12 @@ patientQueue *create_patient_queue(short *nbrOfPatients) {
             }
             queue = queue_push(queue, patient, queue_tail);
         } else {
+            /* If a human user input arrival hours, he can make mistakes, so the elements
+             * must be pushed from the start of the queue */
             queue = queue_push(queue, patient, queue);
         }
     }
     free(currentTime);
-
     return queue;
 }
 
